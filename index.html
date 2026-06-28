@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fbf9f5">
+  <meta name="description" content="A calm kitchen companion for tracking sourdough starters, feedings, ratios, and readiness.">
+  <title>Hearth &amp; Crumb</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <svg class="svg-library" aria-hidden="true">
+    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="icon-arrow-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="icon-jar" viewBox="0 0 24 24"><path d="M7 4h10M8 4v3l-2 3v9h12v-9l-2-3V4M7 12h10"/></symbol>
+    <symbol id="icon-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3M8 16h8"/></symbol>
+    <symbol id="icon-leaf" viewBox="0 0 24 24"><path d="M19 4C11 4 5 8 5 14c0 3 2 5 5 5 6 0 9-7 9-15Z"/><path d="M5 20c2-5 6-8 11-11"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="icon-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="icon-thermometer" viewBox="0 0 24 24"><path d="M10 14.8V5a2 2 0 1 1 4 0v9.8a4 4 0 1 1-4 0Z"/><path d="M12 9v8"/></symbol>
+    <symbol id="icon-bubbles" viewBox="0 0 24 24"><circle cx="8" cy="14" r="3"/><circle cx="15.5" cy="8.5" r="3.5"/><circle cx="17" cy="17" r="2"/></symbol>
+    <symbol id="icon-wind" viewBox="0 0 24 24"><path d="M3 8h10c3 0 3-4 0-4-1 0-2 .5-2.5 1.5M3 12h15c3 0 3 4 0 4-1 0-2-.5-2.5-1.5M3 16h7"/></symbol>
+    <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M7 7l1 13h8l1-13M10 11v5M14 11v5"/></symbol>
+    <symbol id="icon-pencil" viewBox="0 0 24 24"><path d="m4 20 4-1 11-11-3-3L5 16l-1 4ZM14 7l3 3"/></symbol>
+    <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="icon-calculator" viewBox="0 0 24 24"><path d="M7 3h10v5H7zM6 11h2M11 11h2M16 11h2M6 15h2M11 15h2M16 15h2M6 19h2M11 19h2M16 19h2"/></symbol>
+    <symbol id="icon-book" viewBox="0 0 24 24"><path d="M4 5a3 3 0 0 1 3-3h5v18H7a3 3 0 0 0-3 3V5Zm16 0a3 3 0 0 0-3-3h-5v18h5a3 3 0 0 1 3 3V5Z"/></symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <button class="icon-button back-button is-hidden" id="backButton" type="button" aria-label="Back to starters">
+        <svg><use href="#icon-arrow-left"></use></svg>
+      </button>
+      <button class="brand" id="brandButton" type="button">Hearth &amp; Crumb</button>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <button class="nav-link active" data-view="starters" type="button">Starters</button>
+        <button class="nav-link" data-view="log" type="button">Feeding Log</button>
+        <button class="nav-link" data-view="tools" type="button">Baking Prep</button>
+        <button class="nav-link" data-view="recipes" type="button">Recipes</button>
+      </nav>
+      <div class="header-flourish" aria-hidden="true">
+        <svg><use href="#icon-leaf"></use></svg>
+      </div>
+    </div>
+  </header>
+
+  <main id="app" tabindex="-1">
+    <section class="view active" id="startersView" data-view-name="starters">
+      <div class="page-shell">
+        <div class="page-heading heading-with-action">
+          <div>
+            <p class="eyebrow">Your living cultures</p>
+            <h1>My Starters</h1>
+            <p>After purchasing your Hearth &amp; Crumb starter kit, use this cozy tracker to maintain feedings, ratios, and readiness. 🌱</p>
+          </div>
+          <button class="button button-primary" id="addStarterButton" type="button">
+            <svg><use href="#icon-plus"></use></svg>
+            Add Starter
+          </button>
+        </div>
+        <section class="companion-card" aria-labelledby="companionHeading">
+          <div class="companion-face" aria-hidden="true">
+            <span class="companion-bubble bubble-one"></span>
+            <span class="companion-bubble bubble-two"></span>
+            <svg><use href="#icon-jar"></use></svg>
+          </div>
+          <div class="companion-copy">
+            <p class="eyebrow">Your tiny kitchen companion</p>
+            <h2 id="companionHeading">Say hello to <span id="companionNameDisplay">your starter</span>! 👋</h2>
+            <p>Give your starter a playful nickname. We’ll use it to make care reminders feel a little more personal.</p>
+          </div>
+          <div class="companion-name-field">
+            <label for="companionName">Name your starter</label>
+            <div class="name-input-wrap">
+              <input id="companionName" type="text" maxlength="40" placeholder="e.g. Bread Pitt" autocomplete="off">
+              <span aria-hidden="true">🌾</span>
+              <button class="button button-primary" id="companionAddButton" type="button">Add</button>
+            </div>
+            <fieldset class="starter-source-field">
+              <legend>Is this a Hearth &amp; Crumb Starter Kit, or Building From Scratch?</legend>
+              <div class="source-options">
+                <label><input type="radio" name="companionSource" value="kit" checked> Hearth &amp; Crumb Starter Kit</label>
+                <label><input type="radio" name="companionSource" value="scratch"> Building From Scratch</label>
+              </div>
+            </fieldset>
+            <p class="form-message" id="companionNameError" aria-live="polite"></p>
+          </div>
+        </section>
+        <div class="starter-grid" id="starterGrid"></div>
+      </div>
+    </section>
+
+    <section class="view" id="detailView" data-view-name="detail">
+      <div class="page-shell reading-width">
+        <div id="starterDetail"></div>
+      </div>
+    </section>
+
+    <section class="view" id="logView" data-view-name="log">
+      <div class="page-shell reading-width">
+        <div class="page-heading">
+          <p class="eyebrow">A record of care</p>
+          <h1>Feeding Log</h1>
+          <p>Review every feeding across all of your starters.</p>
+        </div>
+        <div class="filter-row">
+          <label for="logStarterFilter">Show</label>
+          <select id="logStarterFilter"><option value="all">All starters</option></select>
+        </div>
+        <div class="activity-list" id="allFeedingLog"></div>
+      </div>
+    </section>
+
+    <section class="view" id="toolsView" data-view-name="tools">
+      <div class="page-shell">
+        <div class="page-heading">
+          <p class="eyebrow">Before you mix</p>
+          <h1>Baking Preparation</h1>
+          <p>Fine-tune a feeding ratio and check your starter’s readiness.</p>
+        </div>
+        <div class="tools-grid">
+          <article class="card tool-card">
+            <div class="card-title-row">
+              <svg><use href="#icon-calculator"></use></svg>
+              <h2>Ratio Calculator</h2>
+            </div>
+            <p class="tool-helper">Scale up your starter before baking. Most recipes require a 100% hydration starter (equal parts water and flour by weight).</p>
+            <div class="calculator-fields">
+              <label class="field">
+                <span>Starter amount</span>
+                <div class="stepper">
+                  <button type="button" data-calc-step="starter" data-direction="-1" aria-label="Decrease starter amount">−</button>
+                  <input id="calcStarter" type="number" min="5" step="5" value="50">
+                  <span>g</span>
+                  <button type="button" data-calc-step="starter" data-direction="1" aria-label="Increase starter amount">+</button>
+                </div>
+              </label>
+              <label class="field">
+                <span>Flour</span>
+                <div class="stepper">
+                  <button type="button" data-calc-step="flour" data-direction="-1" aria-label="Decrease flour amount">−</button>
+                  <input id="calcFlour" type="number" min="5" step="5" value="50">
+                  <span>g</span>
+                  <button type="button" data-calc-step="flour" data-direction="1" aria-label="Increase flour amount">+</button>
+                </div>
+              </label>
+              <label class="field">
+                <span>Water</span>
+                <div class="stepper">
+                  <button type="button" data-calc-step="water" data-direction="-1" aria-label="Decrease water amount">−</button>
+                  <input id="calcWater" type="number" min="0" step="5" value="50">
+                  <span>g</span>
+                  <button type="button" data-calc-step="water" data-direction="1" aria-label="Increase water amount">+</button>
+                </div>
+              </label>
+            </div>
+            <div class="hydration-readout">
+              <div><span>Hydration</span><strong id="calcHydration">100%</strong></div>
+              <div class="hydration-track">
+                <input id="hydrationRange" class="hydration-range" type="range" min="50" max="150" step="1" value="100" aria-label="Hydration percentage">
+                <span id="hydrationMarker"></span>
+              </div>
+              <div class="track-labels"><span>Stiff (50%)</span><span>Liquid (150%)</span></div>
+            </div>
+            <div class="calculation-note">
+              <div><span>Add flour</span><strong id="calcFlourOutput">50g</strong></div>
+              <div><span>Add water</span><strong id="calcWaterOutput">50g</strong></div>
+              <p id="calcExplanation"></p>
+            </div>
+          </article>
+
+          <article class="card tool-card readiness-card">
+            <div class="card-title-row">
+              <svg><use href="#icon-check-circle"></use></svg>
+              <h2>Readiness Check</h2>
+            </div>
+            <label class="field">
+              <span>Starter</span>
+              <select id="readinessStarter"></select>
+            </label>
+            <div class="readiness-visual ready" id="readinessVisual" aria-hidden="true"></div>
+            <div class="guidance-callout" id="readinessGuidance">Choose what you observe. The final decision is always yours.</div>
+            <fieldset>
+              <legend>Bubble activity</legend>
+              <div class="choice-grid four" data-choice-group="bubbles">
+                <button type="button" data-value="none">None</button>
+                <button type="button" data-value="few">Few</button>
+                <button type="button" data-value="active" class="selected">Active</button>
+                <button type="button" data-value="vigorous">Vigorous</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Aroma</legend>
+              <div class="choice-grid wrap" data-choice-group="smell">
+                <button type="button" data-value="mild">Sweet / Milky</button>
+                <button type="button" data-value="fruity" class="selected">Tangy / Fruity</button>
+                <button type="button" data-value="sharp">Sharp Vinegar</button>
+                <button type="button" data-value="acetone">Acetone</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Surface shape</legend>
+              <div class="choice-grid three" data-choice-group="surface">
+                <button type="button" data-value="flat">Flat</button>
+                <button type="button" data-value="rounded">Slight dome</button>
+                <button type="button" data-value="domed" class="selected">Domed</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Red Flags</legend>
+              <div class="choice-grid wrap red-flag-options" data-choice-group="redFlag">
+                <button type="button" data-value="none" class="selected">No red flags</button>
+                <button type="button" data-value="mold">Mold/Fuzzy Growth</button>
+                <button type="button" data-value="pink">Pink/Orange Streaks</button>
+                <button type="button" data-value="rotten">Rotten Smell</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Texture</legend>
+              <div class="choice-grid three" data-choice-group="texture">
+                <button type="button" data-value="thin">Thin</button>
+                <button type="button" data-value="elastic" class="selected">Elastic</button>
+                <button type="button" data-value="collapsed">Collapsed</button>
+              </div>
+            </fieldset>
+            <label class="field">
+              <span>Rise percentage <strong id="riseValue">100%</strong></span>
+              <input id="riseRange" type="range" min="0" max="250" step="10" value="100">
+            </label>
+            <button class="button button-primary button-full" id="logReadinessButton" type="button">Log Readiness Check</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="recipesView" data-view-name="recipes">
+      <div class="page-shell">
+        <div class="recipe-hero">
+          <div>
+            <p class="eyebrow">Bake something joyful</p>
+            <h1>Starter-Ready Recipes</h1>
+            <p>When your starter is bubbly and ready, choose a cozy bake and turn those bubbles into something delicious.</p>
+          </div>
+        </div>
+
+        <div class="recipe-section-heading">
+          <p class="eyebrow">Savory bakes</p>
+          <h2>Crackly crusts, herby pans, melty cheese</h2>
+        </div>
+        <div class="recipe-grid" id="savoryRecipeGrid" aria-label="Savory sourdough recipes"></div>
+
+        <div class="recipe-section-heading">
+          <p class="eyebrow">Sweet bakes</p>
+          <h2>Chocolate swirls, cinnamon mornings, apple crunch</h2>
+        </div>
+        <div class="recipe-grid" id="sweetRecipeGrid" aria-label="Sweet sourdough recipes"></div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <button class="active" data-view="starters" type="button"><svg><use href="#icon-jar"></use></svg><span>Starters</span></button>
+    <button data-view="log" type="button"><svg><use href="#icon-clock"></use></svg><span>Log</span></button>
+    <button data-view="tools" type="button"><svg><use href="#icon-calculator"></use></svg><span>Prep</span></button>
+    <button data-view="recipes" type="button"><svg><use href="#icon-book"></use></svg><span>Recipes</span></button>
+  </nav>
+
+  <dialog id="starterDialog" class="app-dialog">
+    <form id="starterForm" method="dialog" novalidate>
+      <div class="dialog-header">
+        <div>
+          <p class="eyebrow">A new culture</p>
+          <h2 id="starterDialogTitle">What is your new starter's name?</h2>
+          <p id="starterDialogSubtitle">Give your tiny kitchen companion a name so it can start growing.</p>
+        </div>
+        <button class="icon-button" data-close-dialog="starterDialog" type="button" aria-label="Close">
+          <svg><use href="#icon-close"></use></svg>
+        </button>
+      </div>
+      <div class="dialog-body">
+        <input id="starterId" type="hidden">
+        <label class="field"><span>Starter name</span><input id="starterName" type="text" maxlength="40" placeholder="e.g. Wild Rye" required></label>
+        <fieldset class="starter-source-field">
+          <legend>Is this a Hearth &amp; Crumb Starter Kit, or Building From Scratch?</legend>
+          <div class="source-options">
+            <label><input type="radio" name="starterSource" value="kit" checked> Hearth &amp; Crumb Starter Kit</label>
+            <label><input type="radio" name="starterSource" value="scratch"> Building From Scratch</label>
+          </div>
+        </fieldset>
+        <p class="form-message" id="starterNameError" aria-live="polite"></p>
+        <div class="starter-extra-fields" id="starterExtraFields">
+          <label class="field"><span>Started on</span><input id="starterBirthDate" type="date" required></label>
+          <label class="field"><span>Storage</span>
+            <select id="starterStorage"><option value="counter">On the counter</option><option value="fridge">In the fridge</option></select>
+          </label>
+          <label class="field"><span>Notes <small>Optional</small></span><textarea id="starterNotes" rows="3" placeholder="Flour blend, personality, or anything worth remembering"></textarea></label>
+        </div>
+      </div>
+      <div class="dialog-actions">
+        <button class="button button-secondary" data-close-dialog="starterDialog" type="button">Cancel</button>
+        <button class="button button-primary" id="starterSubmitButton" type="submit"><svg><use href="#icon-check"></use></svg><span>Add Starter</span></button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="feedingDialog" class="app-dialog app-dialog-wide">
+    <form id="feedingForm" method="dialog" novalidate>
+      <div class="dialog-header">
+        <div>
+          <p class="eyebrow">Fresh flour, fresh energy</p>
+          <h2>Log Feeding</h2>
+          <p id="feedingStarterLabel"></p>
+        </div>
+        <button class="icon-button" data-close-dialog="feedingDialog" type="button" aria-label="Close">
+          <svg><use href="#icon-close"></use></svg>
+        </button>
+      </div>
+      <div class="dialog-body">
+        <input id="feedingId" type="hidden">
+        <input id="feedingStarterId" type="hidden">
+        <div class="feeding-measures">
+          <label class="field"><span>Starter</span><div class="stepper"><button type="button" data-feed-step="starter" data-direction="-1" aria-label="Decrease starter grams">−</button><input id="feedStarter" type="number" min="5" step="5" value="50" required><span>g</span><button type="button" data-feed-step="starter" data-direction="1" aria-label="Increase starter grams">+</button></div></label>
+          <label class="field"><span>Flour</span><div class="stepper"><button type="button" data-feed-step="flour" data-direction="-1" aria-label="Decrease flour grams">−</button><input id="feedFlour" type="number" min="5" step="5" value="50" required><span>g</span><button type="button" data-feed-step="flour" data-direction="1" aria-label="Increase flour grams">+</button></div></label>
+          <label class="field"><span>Water</span><div class="stepper"><button type="button" data-feed-step="water" data-direction="-1" aria-label="Decrease water grams">−</button><input id="feedWater" type="number" min="0" step="5" value="50" required><span>g</span><button type="button" data-feed-step="water" data-direction="1" aria-label="Increase water grams">+</button></div></label>
+        </div>
+        <div class="two-column-fields">
+          <label class="field"><span>Date and time</span><input id="feedingDate" type="datetime-local" required></label>
+          <label class="field"><span>Room temperature</span><div class="input-suffix"><input id="feedTemp" type="number" min="5" max="40" step="0.5" value="23" required><span>°C</span></div></label>
+        </div>
+        <label class="field"><span>Notes <small>Optional</small></span><textarea id="feedNotes" rows="2" placeholder="Flour blend, consistency, or kitchen conditions"></textarea></label>
+        <div class="feeding-summary">
+          <svg><use href="#icon-flask"></use></svg>
+          <div><strong id="feedingRatio">Ratio 1:1:1</strong><span id="feedingHydration">100% hydration</span><p id="feedingPeak">Estimated peak: 6–8 hours</p></div>
+        </div>
+      </div>
+      <div class="dialog-actions">
+        <button class="button button-secondary" data-close-dialog="feedingDialog" type="button">Cancel</button>
+        <button class="button button-primary" type="submit"><svg><use href="#icon-check"></use></svg>Save Feeding</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="confirmDialog" class="app-dialog confirm-dialog">
+    <form method="dialog">
+      <div class="dialog-body">
+        <h2 id="confirmTitle">Are you sure?</h2>
+        <p id="confirmMessage"></p>
+      </div>
+      <div class="dialog-actions">
+        <button class="button button-secondary" value="cancel">Cancel</button>
+        <button class="button button-danger" id="confirmAction" value="confirm">Delete</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="recipeDialog" class="app-dialog app-dialog-wide recipe-dialog">
+    <div class="dialog-header">
+      <div>
+        <p class="eyebrow" id="recipeDialogTag">Recipe</p>
+        <h2 id="recipeDialogTitle">Recipe</h2>
+        <p id="recipeDialogSubtitle"></p>
+      </div>
+      <button class="icon-button" data-close-dialog="recipeDialog" type="button" aria-label="Close recipe">
+        <svg><use href="#icon-close"></use></svg>
+      </button>
+    </div>
+    <div class="dialog-body" id="recipeDialogBody"></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="toast-sparkle" aria-hidden="true">✨</span>
+    <span id="toastMessage"></span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
