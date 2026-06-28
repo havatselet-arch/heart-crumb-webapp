@@ -13,7 +13,7 @@ Hearth & Crumb is a warm, beginner-friendly sourdough starter tracker for home b
 
 ## Live link
 
-https://your-github-username.github.io/hearth-and-crumb-app/
+https://havatselet-arch.github.io/heart-crumb-webapp/
 
 ## How to use it
 

@@ -119,12 +119,12 @@ const recipes = [
       "500g bread flour",
       "35g brown sugar",
       "9g salt",
+      "20g cocoa powder",
       "90g chocolate-hazelnut spread or soft chocolate spread",
-      "60g dark chocolate chunks",
-      "Optional: 1 tablespoon cocoa powder"
+      "60g dark chocolate chunks"
     ],
     steps: [
-      "Mix starter, water, flour, brown sugar, and salt.",
+      "Mix starter, water, flour, cocoa powder, brown sugar, and salt.",
       "Rest for 30 minutes, then begin stretch and folds.",
       "After the first rise, gently stretch the dough into a rectangle and spread on a thin layer of chocolate spread.",
       "Scatter chocolate chunks over the spread, then roll or fold the dough so chocolate streaks run through the loaf.",
